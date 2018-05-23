@@ -7,7 +7,7 @@
   "finder": [
     {
       "name": ["*.php", "*.xsd", "*.yml", "*.xml", "*.dist", "LICENSE", "LICENSE.md"],
-      "exclude": ["Tests", "tests", "process", "filesystem", "*.feature", "*.dat", "*.exe", "*.bin"],
+      "exclude": ["Tests", "tests", "*.feature", "*.dat", "*.exe", "*.bin"],
       "in": "vendor"
     }
   ],
