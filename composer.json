@@ -1,0 +1,19 @@
+{
+  "name": "solutiondrive/phpspec-standalone",
+  "description": "Standalone installation of phpspec and some useful additions.",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "solutionDrive",
+      "email": "entwickler@solutiondrive.de"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+
+    "phpspec/phpspec": "^3.4||^4.0",
+    "coduo/php-matcher": "^2.4||^3.0",
+    "webmozart/assert": "^1.0"
+  }
+}
