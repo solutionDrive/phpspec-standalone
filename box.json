@@ -1,0 +1,18 @@
+{
+  "chmod": "0755",
+  "directories": [],
+  "files": [
+    "LICENSE"
+  ],
+  "finder": [
+    {
+      "name": ["*.php", "*.xsd", "*.yml", "*.xml", "*.dist", "LICENSE", "LICENSE.md"],
+      "exclude": ["Tests", "tests", "process", "filesystem", "*.feature", "*.dat", "*.exe", "*.bin"],
+      "in": "vendor"
+    }
+  ],
+  "compactors": "Herrera\\Box\\Compactor\\Php",
+  "main": "vendor/phpspec/phpspec/bin/phpspec",
+  "output": "build/phpspec-standalone.phar",
+  "stub": true
+}
