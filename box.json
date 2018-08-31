@@ -6,7 +6,7 @@
   ],
   "finder": [
     {
-      "name": ["*.php", "*.xsd", "*.yml", "*.xml", "*.dist", "LICENSE", "LICENSE.md"],
+      "name": ["*.php", "*.template", "*.xsd", "*.yml", "*.xml", "*.dist", "LICENSE", "LICENSE.md"],
       "exclude": ["Tests", "tests", "*.feature", "*.dat", "*.exe", "*.bin"],
       "in": "vendor"
     }
