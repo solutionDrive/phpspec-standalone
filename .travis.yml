@@ -17,7 +17,7 @@ env:
 
 before_install:
   - phpenv config-add .php.travis.ini
-  - export PATH=$PATH:$HOME/config/.composer/vendor/bin
+  - export PATH=$PATH:$HOME/.config/composer/vendor/bin
 
 install:
   - composer global require humbug/box
