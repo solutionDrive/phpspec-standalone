@@ -17,14 +17,13 @@ env:
 
 before_install:
   - phpenv config-add .php.travis.ini
-  - export PATH=$PATH:$HOME/.composer/vendor/bin
 
 install:
   - composer global require kherge/box
   - composer install --optimize-autoloader -n
 
 script:
-  - box build
+  - composer global exec box build
 
 before_deploy:
   - mv ./build/phpspec-standalone.phar ./build/phpspec-standalone.php${TRAVIS_PHP_VERSION}.phar
