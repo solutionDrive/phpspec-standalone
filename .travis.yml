@@ -19,7 +19,7 @@ before_install:
   - phpenv config-add .php.travis.ini
 
 install:
-  - composer global require kherge/box
+  - composer global require humbug/box
   - composer install --optimize-autoloader -n
 
 script:
