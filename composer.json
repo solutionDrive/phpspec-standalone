@@ -12,17 +12,13 @@
   "require": {
     "php": "^7.4||^8.0",
     "composer-plugin-api": "^2.2",
-
-    "phpspec/phpspec": "^3.4||^4.0",
-    "coduo/php-matcher": "^2.4||^3.0",
-    "bossa/phpspec2-expect": "^2.3||^3.0",
-    "webmozart/assert": "^1.0"
+    "coduo/php-matcher": "^6.0",
+    "friends-of-phpspec/phpspec-expect": "^4.0",
+    "phpspec/phpspec": "^7.2",
+    "webmozart/assert": "^1.11"
   },
   "config": {
-    "preferred-install": "source",
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "cweagans/composer-patches": true
-    }
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }
