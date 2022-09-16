@@ -1,0 +1,67 @@
+name: test-and-publish
+
+on: [ push, pull_request ]
+
+jobs:
+  test-and-publish:
+    name: '[PHP ${{ matrix.php-version }} Tests and Publish'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: [ 7.4, 8.0, 8.1 ]
+
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer:v2
+
+      - uses: actions/checkout@v2
+        with:
+          clean: false
+
+      - name: Cache composer
+        uses: actions/cache@v2
+        with:
+          path: ~/vendor/
+          key: php-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            php-${{ matrix.php-version }}
+            php-${{ matrix.php-version }}
+
+      - name: before install
+        run: |
+          phpenv config-rm xdebug.ini || true
+          export PATH=$PATH:$HOME/.config/composer/vendor/bin:$HOME/.composer/vendor/bin
+
+      - name: Composer install
+        run: |
+          if ( [ "${{ matrix.php-version }}" == "8.1" ] ); then composer global require humbug/box:^3.16 --ignore-platform-reqs; else composer global require humbug/box; fi
+          composer update
+
+      - name: script
+        run: |
+          composer validate --strict
+          vendor/bin/phpspec
+
+      - name: before deploy
+        run: |
+          box compile
+          ./build/phpspec-standalone.phar
+          mv ./build/phpspec-standalone.phar ./build/phpspec-standalone.php${{ matrix.php-version }}.phar
+
+      - name: deploy
+        if:
+          contains('
+          refs/heads/master
+          ', github.ref)
+        uses: shallwefootball/s3-upload-action@master
+        id: S3
+        with:
+          aws_key_id: ${{ secrets.S3_BUILD_ACCESS_KEY }}
+          aws_secret_access_key: ${{ secrets.S3_BUILD_SECRET_KEY }}
+          aws_bucket: ${{ secrets.S3_BUILD_BUCKET }}
+          source_dir: 'build'
+          destination_dir: 'phar'

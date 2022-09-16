@@ -1,8 +1,5 @@
-/build/**
-/vendor/
-
-composer.lock
-
-# exceptions
+/.idea/
 !/build/.gitkeep
-
+/build/**
+/composer.lock
+/vendor/
