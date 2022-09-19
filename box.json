@@ -1,6 +1,4 @@
 {
-  "chmod": "0755",
-  "directories": [],
   "files": [
     "LICENSE"
   ],
@@ -11,8 +9,7 @@
       "in": "vendor"
     }
   ],
-  "compactors": "Herrera\\Box\\Compactor\\Php",
+  "force-autodiscovery": true,
   "main": "vendor/phpspec/phpspec/bin/phpspec",
-  "output": "build/phpspec-standalone.phar",
-  "stub": true
+  "output": "build/phpspec-standalone.phar"
 }

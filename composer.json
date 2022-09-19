@@ -10,11 +10,27 @@
     }
   ],
   "require": {
-    "php": ">=5.6.0",
-
-    "phpspec/phpspec": "^3.4||^4.0",
-    "coduo/php-matcher": "^2.4||^3.0",
-    "bossa/phpspec2-expect": "^2.3||^3.0",
-    "webmozart/assert": "^1.0"
+    "php": "^7.4||^8.0",
+    "composer-plugin-api": "^2.2",
+    "coduo/php-matcher": "^6.0",
+    "cweagans/composer-patches": "^1.7",
+    "friends-of-phpspec/phpspec-expect": "^4.0",
+    "phpspec/phpspec": "^7.2",
+    "webmozart/assert": "^1.11"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "allow-plugins": {
+      "cweagans/composer-patches": true
+    }
+  },
+  "extra": {
+    "composer-exit-on-patch-failure": true,
+    "patches": {
+      "phpspec/phpspec": {
+        "Adjust autoloader for PHAR support": "patches/adjust-autoloader-for-phar-support.patch"
+      }
+    }
   }
 }
