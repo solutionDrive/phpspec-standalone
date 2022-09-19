@@ -13,12 +13,24 @@
     "php": "^7.4||^8.0",
     "composer-plugin-api": "^2.2",
     "coduo/php-matcher": "^6.0",
+    "cweagans/composer-patches": "^1.7",
     "friends-of-phpspec/phpspec-expect": "^4.0",
     "phpspec/phpspec": "^7.2",
     "webmozart/assert": "^1.11"
   },
   "config": {
     "optimize-autoloader": true,
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "cweagans/composer-patches": true
+    }
+  },
+  "extra": {
+    "composer-exit-on-patch-failure": true,
+    "patches": {
+      "phpspec/phpspec": {
+        "Adjust autoloader for PHAR support": "patches/adjust-autoloader-for-phar-support.patch"
+      }
+    }
   }
 }

@@ -1,0 +1,50 @@
+diff --git a/bin/phpspec b/bin/phpspec
+index 6242a919..17f70157 100755
+--- a/bin/phpspec
++++ b/bin/phpspec
+@@ -1,18 +1,41 @@
+ #!/usr/bin/env php
+ <?php
+ 
++function loadIfNotExistsAlready(string $autoload): void
++{
++    // Verify that the autoloader has not already been included during the creation of the PHAR.
++    $composerAutoloadInitClassNames = array_filter(
++        get_declared_classes(),
++        fn($className) => preg_match('/^ComposerAutoloaderInit/', $className)
++    );
++
++    $autoloaderSource = file_get_contents($autoload);
++    $load = true;
++    foreach ($composerAutoloadInitClassNames as $autoloadInitClassName) {
++        if (strpos($autoloaderSource, $autoloadInitClassName) !== false) {
++            echo $autoloadInitClassName . 'is already loaded';
++            $load = false;
++            break;
++        }
++    }
++
++    if ($load) {
++        require $autoload;
++    }
++}
++
+ (function ($version) {
+ 
+     if (is_file($autoload = getcwd() . '/vendor/autoload.php')) {
+-        require $autoload;
++        loadIfNotExistsAlready($autoload);
+     } elseif (is_file($autoload = getcwd() . '/../../autoload.php')) {
+-        require $autoload;
++        loadIfNotExistsAlready($autoload);
+     }
+ 
+     if (is_file($autoload = __DIR__ . '/../vendor/autoload.php')) {
+-        require($autoload);
++        loadIfNotExistsAlready($autoload);
+     } elseif (is_file($autoload = __DIR__ . '/../../../autoload.php')) {
+-        require($autoload);
++        loadIfNotExistsAlready($autoload);
+     } else {
+         fwrite(STDERR,
+             'You must set up the project dependencies, run the following commands:' . PHP_EOL .
