@@ -31,7 +31,7 @@ jobs:
             php-${{ matrix.php-version }}
             php-${{ matrix.php-version }}
 
-      - name: before install
+      - name: Prepare before composer install
         run: |
           phpenv config-rm xdebug.ini || true
           export PATH=$PATH:$HOME/.config/composer/vendor/bin:$HOME/.composer/vendor/bin
@@ -41,18 +41,18 @@ jobs:
           if ( [ "${{ matrix.php-version }}" == "8.1" ] ); then composer global require humbug/box:^3.16 --ignore-platform-reqs; else composer global require humbug/box; fi
           composer update
 
-      - name: script
+      - name: Validate composer and installation
         run: |
           composer validate --strict
           vendor/bin/phpspec
 
-      - name: before deploy
+      - name: Compile the phar, check the execution and rename to correct php-version
         run: |
           box compile
           ./build/phpspec-standalone.phar
           mv ./build/phpspec-standalone.phar ./build/phpspec-standalone.php${{ matrix.php-version }}.phar
 
-      - name: deploy
+      - name: deploy to s3
         if:
           contains('
           refs/heads/master
